@@ -1,17 +1,17 @@
 ## creates predictions for every node
 ## for a specified probe_id
 library(data.table)
-source("helper_functions.R")
+
+source("src/helper_functions.R")
+
 ##settings
 
-#probe_id <- "A_23_P152462" #STX1B
-#probe_id <- "A_23_P66593"  #GFAP (reactive strocytes)
-#probe_id <- "CUST_6025_PI416261804" #TMEM119 (microglia marker)
-#probe_id <- "A_23_P48325" #KCTD4 (max cor with atrophy in MAPT carriers)
-probe_id <- "A_23_P300600" #NEFH (max anti corr with atrophy in C9ORF72 carriers)
+probe_id <- "A_23_P48325" #KCTD4 
 
+#uses corrected MNI coorinates from: https://github.com/chrisfilo/alleninf
 dist_pref <- "corrected_mni"
 
+#distance type
 #dtype <- "eucl"
 dtype <- "geod"
 
@@ -23,7 +23,7 @@ nboot <- 100
 ##
 exp.fname <- "Data/lh_cort_fsa_newmni.RData"
 geo.fname <- "Data/mni_2mm_geo_newmni.RData"
-tar.fname <- "lh.MNI152_2mm.scannerRAS.lfname.gz"
+tar.fname <- "Data/lh.MNI152_2mm.scannerRAS.lfname.gz"
 
 if (!exists("geo.loaded"))
   geo.loaded <- F
@@ -110,12 +110,4 @@ max.node <- max(idx.node)
 
 to.write <- rep(0, max.node)
 to.write[idx.node] <- donor.mean
-if (dtype=="eucl"){
-  to.write[idx.node] <- donor.mean
-}
-if (dtype=="geodxxx"){
-  to.write <- donor.mean
-  ridx <- setdiff(1:max.node, idx.node)
-  to.write[ridx] <- 0
-}
 write.table(to.write, ofname, row.names=F, col.names=F, quote=F)
