@@ -6,7 +6,7 @@ Parts of the pipeline require a working installation of
  - MATLAB
  - FreeSurfer
 
-The visualization is based on kernel density smoothing (KDS) using either eucledian or geodesic distance. For geodesic distance FreeSurfer's implementation was used to compute shortest paths from source vertices (training data) to all vertices on the surface. There are larger (preprocessed) files needed to execute the pipeline:
+The visualization is based on kernel density smoothing (KDS) using either Euclidean or geodesic distance. For geodesic distance FreeSurfer's implementation was used to compute shortest paths from source vertices (training data) to all vertices on the surface. There are larger (preprocessed) files needed to execute the pipeline:
  - RData for cortical samples from the Allen Data
  - pre-computed geodesic distances
 
